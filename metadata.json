@@ -1,0 +1,6 @@
+{
+  "name": "Nebula Raider - Space Roguelite Arcade",
+  "description": "Game aksi luar angkasa roguelite berkecepatan tinggi dengan sistem upgrade, boss battle, efek visual partikel partikel, dan audio dinamis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

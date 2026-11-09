@@ -1,320 +1,36 @@
 {
-  "name": "vscode-pgn-viewer",
-  "displayName": "Chess PGN Viewer",
-  "description": "Displays Portable Game Notation files on an interactive chess board",
-  "version": "1.2.5",
-  "engines": {
-    "vscode": "^1.95.0"
-  },
-  "keywords": [
-    "chess",
-    "board",
-    "pgn",
-    "fen",
-    "portable game notation"
-  ],
-  "categories": [
-    "Other"
-  ],
-  "license": "MIT",
-  "icon": "images/icon.png",
-  "publisher": "motivesoft",
-  "author": {
-    "name": "ianabrown",
-    "url": "https://github.com/ianabrown"
-  },
-  "homepage": "https://github.com/Motivesoft/vscode-pgn-viewer/blob/master/README.md",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Motivesoft/vscode-pgn-viewer.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Motivesoft/vscode-pgn-viewer/issues"
-  },
-  "activationEvents": [
-    "onStartupFinished"
-  ],
-  "main": "./dist/extension.js",
-  "browser": "./dist/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "vscode-pgn-viewer.openInPgnViewer",
-        "title": "Open In PGN Viewer"
-      }
-    ],
-    "configuration": [
-      {
-        "title": "Chess PGN Viewer",
-        "properties": {
-          "vscode-pgn-viewer.showResult": {
-            "type": "boolean",
-            "default": true,
-            "description": "Show the game result, if available."
-          },
-          "vscode-pgn-viewer.showCoordinates": {
-            "type": "boolean",
-            "default": false,
-            "description": "Whether the board coordinates should be shown."
-          },
-          "vscode-pgn-viewer.showFen": {
-            "type": "boolean",
-            "default": false,
-            "description": "Whether to show the FEN for the current position."
-          },
-          "vscode-pgn-viewer.showHeaders": {
-            "type": "boolean",
-            "default": true,
-            "description": "Whether to show headers (e.g. player names)."
-          },
-          "vscode-pgn-viewer.showGameSelector": {
-            "type": "boolean",
-            "default": true,
-            "description": "Whether to show a dropdown selector to choose between multiple games in a single PGN file."
-          },
-          "vscode-pgn-viewer.boardSize": {
-            "type": "number",
-            "default": 400,
-            "enum": [
-              100,
-              200,
-              300,
-              400,
-              500,
-              600,
-              700,
-              800,
-              900,
-              1000,
-              1100,
-              1200,
-              1300,
-              1400,
-              1500,
-              1600
-            ],
-            "enumDescriptions": [
-              "Board size '100px'",
-              "Board size '200px'",
-              "Board size '300px'",
-              "Board size '400px'",
-              "Board size '500px'",
-              "Board size '600px'",
-              "Board size '700px'",
-              "Board size '800px'",
-              "Board size '900px'",
-              "Board size '1000px'",
-              "Board size '1100px'",
-              "Board size '1200px'",
-              "Board size '1300px'",
-              "Board size '1400px'",
-              "Board size '1500px'",
-              "Board size '1600 px'"
-            ],
-            "description": "Choose the size of the board"
-          },
-          "vscode-pgn-viewer.movesWidth": {
-            "type": "number",
-            "default": 200,
-            "enum": [
-              100,
-              200,
-              300,
-              400,
-              500,
-              600,
-              700,
-              800,
-              900,
-              1000
-            ],
-            "enumDescriptions": [
-              "Move list width '100px'",
-              "Move list width '200px'",
-              "Move list width '300px'",
-              "Move list width '400px'",
-              "Move list width '500px'",
-              "Move list width '600px'",
-              "Move list width '700px'",
-              "Move list width '800px'",
-              "Move list width '900px'",
-              "Move list width '1000px'"
-            ],
-            "description": "Choose the width of the move list display"
-          },
-          "vscode-pgn-viewer.movesHeight": {
-            "type": "number",
-            "default": 200,
-            "enum": [
-              100,
-              200,
-              300,
-              400,
-              500,
-              600,
-              700,
-              800,
-              900,
-              1000
-            ],
-            "enumDescriptions": [
-              "Move list height '100px'",
-              "Move list height '200px'",
-              "Move list height '300px'",
-              "Move list height '400px'",
-              "Move list height '500px'",
-              "Move list height '600px'",
-              "Move list height '700px'",
-              "Move list height '800px'",
-              "Move list height '900px'",
-              "Move list height '1000px'"
-            ],
-            "description": "Choose the height of the move list display"
-          },
-          "vscode-pgn-viewer.notationLayout": {
-            "type": "string",
-            "default": "list",
-            "enum": [
-              "list",
-              "inline"
-            ],
-            "enumDescriptions": [
-              "Show notation in a list",
-              "Show notation as an inline block"
-            ],
-            "description": "Choose notation layout"
-          },
-          "vscode-pgn-viewer.moveNotation": {
-            "type": "string",
-            "default": "short",
-            "enum": [
-              "short",
-              "long"
-            ],
-            "enumDescriptions": [
-              "Use short move notation, e.g. 'e4'",
-              "Use long move notation, e.g. 'e2-e4'"
-            ],
-            "description": "Choose the move notation"
-          },
-          "vscode-pgn-viewer.layout": {
-            "type": "string",
-            "default": "left",
-            "enum": [
-              "left",
-              "right",
-              "top",
-              "bottom"
-            ],
-            "enumDescriptions": [
-              "Place the board to the left of the moves list",
-              "Place the board to the right of the moves list",
-              "Place the board above the moves list",
-              "Place the board below the moves list"
-            ],
-            "description": "Choose the position of the board relative to the moves list"
-          },
-          "vscode-pgn-viewer.pieceStyle": {
-            "type": "string",
-            "default": "merida",
-            "enum": [
-              "merida",
-              "case",
-              "wikipedia",
-              "alpha",
-              "uscf",
-              "condal",
-              "maya",
-              "leipzig"
-            ],
-            "enumDescriptions": [
-              "Piece style 'merida'",
-              "Piece style 'case'",
-              "Piece style 'wikipedia'",
-              "Piece style 'alpha'",
-              "Piece style 'uscf'",
-              "Piece style 'condal'",
-              "Piece style 'maya'",
-              "Piece style 'leipzig'"
-            ],
-            "description": "Choose which set of pieces to use on the board"
-          },
-          "vscode-pgn-viewer.theme": {
-            "type": "string",
-            "default": "default",
-            "enum": [
-              "default",
-              "zeit",
-              "green",
-              "blue",
-              "falken",
-              "beyer",
-              "sportverlag",
-              "informator",
-              "brown"
-            ],
-            "enumDescriptions": [
-              "Theme 'default'",
-              "Theme 'zeit'",
-              "Theme 'green'",
-              "Theme 'blue'",
-              "Theme 'falken'",
-              "Theme 'beyer'",
-              "Theme 'sportverlag'",
-              "Theme 'informator'",
-              "Theme 'brown'"
-            ],
-            "description": "Choose which theme to use for the board"
-          }
-        }
-      }
-    ],
-    "customEditors": [
-      {
-        "viewType": "vscode-pgn-viewer.readonlyView",
-        "displayName": "PGN Viewer",
-        "selector": [
-          {
-            "filenamePattern": "*.pgn"
-          }
-        ],
-        "priority": "default"
-      }
-    ]
-  },
+  "name": "react-example",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "vscode:prepublish": "npm run copy-files && npm run package",
-    "compile": "npm run check-types && npm run lint && node esbuild.js",
-    "postinstall": "npm run copy-files",
-    "copy-files": "copyfiles -f ./node_modules/@mliebelt/pgn-viewer/lib/dist.js dist/",
-    "watch": "npm-run-all -p watch:*",
-    "watch:esbuild": "node esbuild.js --watch",
-    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "package": "npm run check-types && npm run lint && node esbuild.js --production",
-    "compile-tests": "tsc -p . --outDir out",
-    "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "npm run compile-tests && npm run compile && npm run lint",
-    "check-types": "tsc --noEmit",
-    "lint": "eslint src",
-    "test": "vscode-test",
-    "run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ."
-  },
-  "devDependencies": {
-    "@types/mocha": "^10.0.9",
-    "@types/node": "20.x",
-    "@types/vscode": "^1.95.0",
-    "@typescript-eslint/eslint-plugin": "^8.10.0",
-    "@typescript-eslint/parser": "^8.7.0",
-    "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1",
-    "copyfiles": "^2.4.1",
-    "esbuild": "^0.25.5",
-    "eslint": "^9.13.0",
-    "npm-run-all": "^4.1.5",
-    "typescript": "^5.6.3"
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist server.js",
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@mliebelt/pgn-viewer": "^1.6.10",
-    "@vscode/test-web": "^0.0.63"
+    "@google/genai": "^2.4.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.1.1",
+    "lucide-react": "^0.546.0",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "vite": "^8.3.0",
+    "express": "^4.21.2",
+    "dotenv": "^17.2.3",
+    "motion": "^12.23.24"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "autoprefixer": "^10.4.21",
+    "esbuild": "^0.25.0",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.21.0",
+    "typescript": "^7.0.2",
+    "@types/express": "^4.17.21"
   }
 }
